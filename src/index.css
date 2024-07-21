@@ -9,5 +9,13 @@
 }
 
 body {
-  background-color: #020617;
+  @apply bg-[#01061d] h-full overflow-x-hidden;
+}
+
+#__next {
+  @apply h-full;
+}
+
+html {
+  @apply h-full;
 }
