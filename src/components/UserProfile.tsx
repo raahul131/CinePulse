@@ -21,7 +21,7 @@ interface RootState {
 
 const UserProfile = () => {
   const navigate = useNavigate();
-  const user = useSelector((store: RootState) => store.user);
+  const user = useSelector((store: RootState) => store?.user);
   console.log("user", user);
 
   const handleSignOut = () => {

@@ -19,3 +19,84 @@ body {
 html {
   @apply h-full;
 }
+
+/* Hide the scrollbar */
+.scroll-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Custom skeleton styles */
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background-color: #e0e0e0;
+}
+.skeleton::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.2) 20%,
+    rgba(255, 255, 255, 0.5) 60%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: translateX(-100%);
+  animation: shimmer 2s infinite;
+}
+
+/* Keyframe for shimmer animation */
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.playbtn {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  cursor: pointer;
+  svg {
+    width: 60px;
+    @include md {
+      width: 80px;
+    }
+  }
+  .text {
+    font-size: 20px;
+    transition: all 0.7s ease-in-out;
+  }
+  .triangle {
+    stroke-dasharray: 240;
+    stroke-dashoffset: 480;
+    stroke: white;
+    transform: translateY(0);
+    transition: all 0.7s ease-in-out;
+  }
+  .circle {
+    stroke: white;
+    stroke-dasharray: 650;
+    stroke-dashoffset: 1300;
+    transition: all 0.5s ease-in-out;
+  }
+  &:hover {
+    .text {
+      color: var(--pink);
+    }
+    .triangle {
+      stroke-dashoffset: 0;
+      opacity: 1;
+      stroke: var(--pink);
+      animation: trailorPlay 0.7s ease-in-out;
+    }
+    .circle {
+      stroke-dashoffset: 0;
+      stroke: var(--pink);
+    }
+  }
+}

@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import Logo from "../assets/movix-logo.svg";
+import Logo from "../assets/cinepulse-logo.png";
 import Input from "./Input";
 import {
   createUserWithEmailAndPassword,
@@ -12,7 +12,7 @@ import { Slide, toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { VscLoading } from "react-icons/vsc";
 import { useDispatch } from "react-redux";
-import { addUser } from "../utils/userSlice";
+import { addUser } from "../store/userSlice";
 
 const Auth: React.FC = () => {
   const dispatch = useDispatch();
@@ -82,11 +82,15 @@ const Auth: React.FC = () => {
     <div className="relative h-screen w-full bg-no-repeat bg-fixed bg-cover bg-[url('./assets/hero.jpg')]">
       <div className="bg-[#01061d] h-full w-full lg:bg-opacity-45">
         <nav className="px-12 py-5">
-          <img src={Logo} alt="Logo" className="h-14" />
+          <img
+            src={Logo}
+            alt="Logo"
+            className="h-14 transform scale-[3] mx-10"
+          />
         </nav>
         <div className="flex justify-center">
           <div
-            className="bg-[#00132D] bg-opacity-70 px-16 py-16 self-center mt-2 lg:w-2/5 
+            className="bg-slate-900/40 px-16 py-16 self-center mt-2 lg:w-2/5 
           lg:max-w-md rounded-md w-full"
           >
             <h2 className="text-white text-4xl mb-8 font-semibold">
@@ -129,8 +133,8 @@ const Auth: React.FC = () => {
               />
               <button
                 onClick={submitHandler}
-                className="py-3 text-white rounded-md w-full mt-10 bg-gradient-to-r from-yellow-700 to-red-600 
-                font-semibold tracking-wider flex justify-center items-center"
+                className="py-3 text-white rounded-md w-full mt-10 bg-blue-800 
+                font-semibold tracking-wider flex justify-center items-center hover:bg-blue-900"
                 disabled={isLoading}
               >
                 {isLoading ? (
