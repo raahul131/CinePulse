@@ -18,7 +18,7 @@ const Trending = () => {
         <h1 className="text-xl tracking-wide">Trending</h1>
         <SwitchTabs data={["Day", "Week"]} onTabChange={onTabChange} />
       </div>
-      <Carousel endPoint={endPoint} data={data?.results} loading={isLoading} />
+      <Carousel endPoint={endPoint} data={data?.results || []} loading={isLoading} />
     </div>
   );
 };

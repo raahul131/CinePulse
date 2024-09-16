@@ -1,8 +1,6 @@
 // types.ts
 export interface Video {
-  id?: string;
-  iso_639_1?: string;
-  iso_3166_1?: string;
+  id?: number | undefined;
   key?: string;
   name?: string;
   official?: boolean;
@@ -17,6 +15,7 @@ export interface Video {
   genre_ids: [];
   backdrop_path?: string;
   poster_path?: string;
+  overview?: string
 }
 
 export interface CastMember {
@@ -49,14 +48,19 @@ export interface CrewMember {
 }
 
 export interface CarouselItem {
-  id: string | number;
+  backdrop_path?: string;
+  original_title?: string;
+  id?: string | number;
   poster_path?: string;
-  title: string;
-  name: string;
-  release_date: string;
-  first_air_date: string;
-  vote_average: number;
-  genre_ids: number[];
+  overview?: string;
+  popularity?: number;
+  title?: string;
+  name?: string;
+  release_date?: string;
+  first_air_date?: string;
+  vote_average?: number | undefined;
+  vote_count?: number;
+  genre_ids?: number[] | undefined;
   media_type?: string;
 }
 
@@ -91,7 +95,7 @@ export interface FetchResponse {
   crew?: CrewMember[];
   cast?: CastMember[];
   results?: Video[];
-  result?: CarouselItem;
+  result?: CarouselItem[];
 }
 
 export interface CastMember {

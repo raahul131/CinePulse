@@ -5,15 +5,7 @@ import { RootState } from "../store/store";
 import { FaPlay } from "react-icons/fa";
 import { IoMdInformationCircleOutline } from "react-icons/io";
 import dayjs from "dayjs";
-
-interface Movie {
-  id: number;
-  title: string;
-  backdrop_path: string;
-  overview: string;
-  genre_ids: number[];
-  release_date: string;
-}
+import {Video} from "../utils/types.ts";
 
 const HeroBanner = () => {
   const url = useSelector((store: RootState) => store.home.url);
@@ -26,7 +18,7 @@ const HeroBanner = () => {
   const [mobileBackgroundImage, setMobileBackgroundImage] = useState<
     string | undefined
   >("");
-  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
+  const [selectedMovie, setSelectedMovie] = useState<Video | null>(null);
 
   useEffect(() => {
     if (data?.results && data?.results?.length > 0) {

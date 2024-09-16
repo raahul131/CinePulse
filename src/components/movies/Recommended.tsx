@@ -17,7 +17,7 @@ const Recommended: FC<RecommendedProps> = ({ id, mediaType }) => {
     <div className="px-4 md:px-16">
       <Carousel
         title={title}
-        data={data?.results}
+        data={data?.results || []}
         loading={isLoading}
         endPoint={mediaType}
       />

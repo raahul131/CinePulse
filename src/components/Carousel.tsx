@@ -79,9 +79,9 @@ const Carousel: FC<CarouselProps> = ({ data, loading, endPoint, title }) => {
                       className="rounded-xl aspect-[1/1.5] bg-cover bg-center mb-4 p-1"
                     />
                     <CircleRating
-                      rating={parseFloat(item?.vote_average.toFixed(1))}
+                      rating={item?.vote_average ? parseFloat(item.vote_average.toFixed(1)) : 0}
                     />
-                    <Genres data={item?.genre_ids.slice(0, 2)} />
+                    <Genres data={item?.genre_ids?.slice(0, 2) || []}/>
                   </div>
                   <div className="text-white flex flex-col -mt-2">
                     <span className="text-base leading-6 truncate md:text-lg">
