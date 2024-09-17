@@ -23,8 +23,8 @@ interface MovieCardProps {
     backdrop_path?: string;
     release_date?: string; 
   };
-  fromSearch: boolean;
-  mediaType: string;
+  fromSearch?: boolean;
+  mediaType: string | undefined;
 }
 
 const MovieCard: FC<MovieCardProps> = ({ data, mediaType }) => {

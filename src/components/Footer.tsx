@@ -70,12 +70,6 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-8 text-center">
-          <button className="border border-gray-400 px-4 py-2 text-gray-400 hover:bg-gray-700">
-            Service Code
-          </button>
-        </div>
-
         <div className="mt-6 text-center text-sm text-gray-600">
           © {currentYear} CinePulse, Inc.
         </div>
