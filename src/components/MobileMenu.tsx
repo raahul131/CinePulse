@@ -9,15 +9,6 @@ const MobileMenu = () => {
         <div className="px-3 text-center text-white hover:underline">
           Movies
         </div>
-        <div className="px-3 text-center text-white hover:underline">
-          New & Popular
-        </div>
-        <div className="px-3 text-center text-white hover:underline">
-          My List
-        </div>
-        <div className="px-3 text-center text-white hover:underline">
-          Browse by Language
-        </div>
       </div>
     </div>
   );

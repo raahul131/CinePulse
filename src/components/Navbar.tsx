@@ -8,7 +8,6 @@ import {
 } from "react-router-dom";
 import { BsBell, BsChevronDown, BsSearch } from "react-icons/bs";
 import userIcon from "../assets/userIcon.jpg";
-import MobileMenu from "./MobileMenu";
 import UserProfile from "./UserProfile";
 import NavbarItem from "./NavbarItem";
 import useDebounce from "../hooks/useDebounce";
@@ -29,7 +28,7 @@ const Navbar: React.FC = () => {
 
   const search = searchParams.get("query") || "";
   const [inputValue, setInputValue] = useState(search);
-  const debounceSearch = useDebounce(inputValue, 500);
+  const debounceSearch = useDebounce(inputValue, 700);
 
   useEffect(() => {
     const isSearchOrBrowse =
@@ -94,17 +93,18 @@ const Navbar: React.FC = () => {
 
   const navigationHandler = (type: string) => () => {
     if (type === "movie") {
-      navigate("/explore/movie");
+      navigate("/explore/movie", { replace: true });
     } else {
-      navigate("explore/tv");
+      navigate("/explore/tv", { replace: true });
     }
   };
+
 
   return (
     <main className="fixed w-full z-50 mx-auto">
       <div
         className={`px-3 sm:px-16 py-1 flex flex-row items-center transition duration-500 gap-x-20 ${
-          showBackground ? "bg-zinc-700 bg-opacity-90" : ""
+          showBackground ? "bg-zinc-700 bg-opacity-80" : ""
         }`}
       >
         <Link to="/">
@@ -116,15 +116,16 @@ const Navbar: React.FC = () => {
         </Link>
 
         <div className="flex-row gap-6 hidden md:flex">
-          <NavbarItem label="Home" />
+          <Link to={"/"}>
+            <NavbarItem label="Home" />
+          </Link>
           <NavbarItem onClick={navigationHandler("movie")} label="Movies" />
           <NavbarItem onClick={navigationHandler("tv")} label="TV Shows" />
-          <NavbarItem label="Latest" />
         </div>
 
         <div
           onClick={() => setShowMobileMenu((prev) => !prev)}
-          className="lg:hidden hidden flex flex-row justify-end items-center gap-1 ml-8 cursor-pointer relative"
+          className="md::hidden flex flex-row justify-end items-center gap-1 ml-8 cursor-pointer relative"
         >
           <p className="text-white text-xs">Browse</p>
           <BsChevronDown
@@ -133,7 +134,25 @@ const Navbar: React.FC = () => {
               showMobileMenu ? "rotate-180" : "rotate-0"
             }`}
           />
-          {showMobileMenu && <MobileMenu />}
+          {showMobileMenu &&
+              <div className="bg-black w-40 absolute top-8 py-5 flex-col flex border-2 border-gray-600">
+                <div className="flex flex-col gap-4">
+                  <Link to={"/"} className="px-3 text-center text-white hover:underline">Home</Link>
+                  <div
+                      onClick={navigationHandler("tv")}
+                      className="px-3 text-center text-white hover:underline"
+                  >
+                      TV Shows
+                  </div>
+                  <div
+                      onClick={navigationHandler("movie")}
+                      className="px-3 text-center text-white hover:underline"
+                  >
+                      Movies
+                  </div>
+                </div>
+              </div>
+          }
         </div>
 
         {/* Profile Menu */}

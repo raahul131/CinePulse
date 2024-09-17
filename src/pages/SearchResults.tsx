@@ -5,6 +5,7 @@ import Card from "../components/Card";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Navbar from "../components/Navbar";
 import { VscLoading } from "react-icons/vsc";
+import noResults from "../assets/no-results.png"
 
 interface SearchResultsProps {}
 
@@ -121,9 +122,12 @@ const SearchResults: FC<SearchResultsProps> = () => {
                 </InfiniteScroll>
               </>
             ) : (
-              <p className="text-white/50 mt-7">
-                Your search for '{query}'' did not find any matches.
-              </p>
+              <div className={"flex flex-col items-center"}>
+                <p className="text-white/50 mt-7 text-xl">
+                  Your search for '{query}'' did not find any matches.
+                </p>
+                <img src={noResults} className={"w-[600px]"} alt=""/>
+              </div>
             )}
           </div>
         )}

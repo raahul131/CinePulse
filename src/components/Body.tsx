@@ -6,12 +6,13 @@ import { onAuthStateChanged, User } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { useDispatch } from "react-redux";
 import { addUser, removeUser } from "../store/userSlice";
-import PageNotFount from "../pages/PageNotFount";
 import { fetchDataFromAPI } from "../utils/api";
 import { getApiConfiguration, getGenres } from "../store/homeSlice";
 import Details from "../pages/Details";
 import { ApiConfigResponse, Genre, GenreApiResponse } from "../utils/types";
 import SearchResults from "../pages/SearchResults";
+import Explore from "../pages/Explore.tsx";
+import PageNotFound from "../pages/PageNotFound.tsx";
 
 const Body = () => {
   const dispatch = useDispatch();
@@ -22,17 +23,6 @@ const Body = () => {
     fetchApiConfig();
     genresCall();
   }, []);
-
-  // const fetchApiConfig = () => {
-  //   fetchDataFromAPI({ url: "/configuration" }).then((res) => {
-  //     const url = {
-  //       backdrop: res?.images?.secure_base_url + "original",
-  //       poster: res?.images?.secure_base_url + "original",
-  //       profile: res?.images?.secure_base_url + "original",
-  //     };
-  //     dispatch(getApiConfiguration(url));
-  //   });
-  // };
 
   const fetchApiConfig = async () => {
     const res: ApiConfigResponse | undefined = await fetchDataFromAPI({
@@ -47,29 +37,6 @@ const Body = () => {
       dispatch(getApiConfiguration(url));
     }
   };
-
-  // const genresCall = async () => {
-  //   const promises: Promise<GenreApiResponse>[] = [];
-  //   const endPoints: string[] = ["tv", "movie"];
-  //   const allGenres: { [key: number]: Genre } = {};
-
-  //   endPoints.forEach((url) => {
-  //     promises.push(fetchDataFromAPI({ url: `/genre/${url}/list` }));
-  //   });
-
-  //   try {
-  //     const data = await Promise.all(promises);
-  //     data.forEach(({ genres }) => {
-  //       genres.forEach((item: any) => {
-  //         allGenres[item.id] = item;
-  //       });
-  //     });
-  //   } catch (error) {
-  //     console.error("Error fetching genres:", error);
-  //   }
-
-  //   dispatch(getGenres(allGenres));
-  // };
 
   const genresCall = async () => {
     const promises: Promise<GenreApiResponse>[] = [];
@@ -119,7 +86,8 @@ const Body = () => {
         <Route path="/browse" element={<Browse />} />
         <Route path="/:mediaType/:id" element={<Details />} />
         <Route path="/search" element={<SearchResults />} />
-        <Route path="*" element={<PageNotFount />} />
+        <Route path={"/explore/:mediaType"} element={<Explore />}/>
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </>
   );
