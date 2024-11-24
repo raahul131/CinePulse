@@ -1,11 +1,11 @@
-import {FC, useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import { FC, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
-import {fetchDataFromAPI} from "../utils/api.ts";
+import { fetchDataFromAPI } from "../utils/api.ts";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Card from "../components/Card.tsx";
-import {VscLoading} from "react-icons/vsc";
-import Select, {ActionMeta, MultiValue, SingleValue} from "react-select";
+import { VscLoading } from "react-icons/vsc";
+import Select, { ActionMeta, MultiValue, SingleValue } from "react-select";
 import Navbar from "../components/Navbar.tsx";
 
 interface ExploreProps {}
@@ -61,10 +61,9 @@ const Explore: FC<ExploreProps> = () => {
   const [sortBy, setSortby] = useState<SingleValue<SortByOption> | null>(null);
 
   const { mediaType } = useParams();
-  console.log("media type", mediaType)
+  console.log("media type", mediaType);
 
-
-  const {data:genresData } = useFetch(`/genre/${mediaType}/list`)
+  const { data: genresData } = useFetch(`/genre/${mediaType}/list`);
 
   const fetchInitialData = async () => {
     setIsLoading(true);
@@ -87,7 +86,7 @@ const Explore: FC<ExploreProps> = () => {
     try {
       const res = await fetchDataFromAPI({
         url: `/discover/${mediaType}?page=${pageNumber}`,
-        params: filters
+        params: filters,
       });
 
       if (data) {
@@ -101,40 +100,14 @@ const Explore: FC<ExploreProps> = () => {
     }
   };
 
-
   useEffect(() => {
-    filters={}
-    setData(null)
-    setPageNumber(1)
-    setSortby(null)
-    setGenre(null)
-    fetchInitialData()
-  },[mediaType])
-
-  // const onChange = (selectedItems, action) => {
-  //   if (action.name === "sortBy") {
-  //     setSortby(selectedItems);
-  //     if (action.action !== "clear") {
-  //       filters.sort_by = selectedItems.value;
-  //     } else {
-  //       delete filters.sort_by;
-  //     }
-  //   }
-  //
-  //   if (action.name === "genres") {
-  //     setGenre(selectedItems);
-  //     if (action.action !== "clear") {
-  //       let genreId = selectedItems.map((g) => g.id);
-  //       genreId = JSON.stringify(genreId).slice(1, -1);
-  //       filters.with_genres = genreId;
-  //     } else {
-  //       delete filters.with_genres;
-  //     }
-  //   }
-  //   setPageNumber(1);
-  //   fetchInitialData();
-  // };
-
+    filters = {};
+    setData(null);
+    setPageNumber(1);
+    setSortby(null);
+    setGenre(null);
+    fetchInitialData();
+  }, [mediaType]);
 
   const onChange = (
     selectedItems: MultiValue<Genre> | SingleValue<SortByOption>,
@@ -152,7 +125,9 @@ const Explore: FC<ExploreProps> = () => {
     if (action.name === "genres") {
       setGenre(selectedItems as MultiValue<Genre>);
       if (action.action !== "clear") {
-        const genreId = (selectedItems as MultiValue<Genre>).map((g) => g.id).join(",");
+        const genreId = (selectedItems as MultiValue<Genre>)
+          .map((g) => g.id)
+          .join(",");
         filters.with_genres = genreId;
       } else {
         delete filters.with_genres;
@@ -164,14 +139,12 @@ const Explore: FC<ExploreProps> = () => {
 
   return (
     <>
-      <Navbar/>
+      <Navbar />
       <div className="min-h-screen pt-24">
         <div className={"px-4 md:px-16"}>
           <div className="pageHeader flex justify-between mb-6 flex-col md:flex-row">
             <div className="text-white text-xl md:text-2xl  leading-8 mb-5 md:mb-0">
-              {mediaType === "tv"
-                ? "Explore TV Shows"
-                : "Explore Movies"}
+              {mediaType === "tv" ? "Explore TV Shows" : "Explore Movies"}
             </div>
             <div className="filters flex gap-3 flex-col md:flex-row">
               <Select
@@ -201,7 +174,7 @@ const Explore: FC<ExploreProps> = () => {
           </div>
           {isLoading && (
             <div className="text-2xl mt-6 h-[50vh] w-full flex items-center justify-center text-white">
-              <VscLoading size={40} className="animate-spin"/>
+              <VscLoading size={40} className="animate-spin" />
             </div>
           )}
           {error && <div className="text-2xl mt-6">{error}</div>}
@@ -215,34 +188,29 @@ const Explore: FC<ExploreProps> = () => {
                   hasMore={pageNumber <= data?.total_pages}
                   loader={
                     <div className="mt-5 flex items-center justify-center text-white">
-                      <VscLoading size={40} className="animate-spin"/>
+                      <VscLoading size={40} className="animate-spin" />
                     </div>
                   }
                 >
                   <div className={"flex flex-wrap gap-x-5"}>
                     {data?.results?.map((item) => {
                       if (item.media_type === "person") return;
-                      console.log("item", item)
-                      return (
-                        <Card
-                          data={item}
-                          mediaType={mediaType}
-                        />
-                      );
+                      console.log("item", item);
+                      return <Card data={item} mediaType={mediaType} />;
                     })}
                   </div>
                 </InfiniteScroll>
               ) : (
                 <span className="text-2xl text-white/60">
-              Sorry, Results not found!
-            </span>
+                  Sorry, Results not found!
+                </span>
               )}
             </>
           )}
         </div>
       </div>
     </>
-  )
+  );
 };
 
 export default Explore;
